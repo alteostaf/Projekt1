@@ -1,0 +1,32 @@
+/* styles.css */
+
+.plan-your-trip {
+  text-align: center;
+  padding: 50px 0;
+  background-color: #ffffff; /* Ngjyra e bardhë për sfond */
+}
+.paragraphs{
+  align-items: center;
+}
+
+.plan-your-trip h6 {
+  font-size: 18px;
+  color: #ddd0d0; /* Ngjyra e afërt me ngjyrën e sfondit */
+}
+
+.plan-your-trip h1 {
+  font-size: 32px;
+  color: #333; /* Ngjyra e tekstit për titullin */
+  margin-bottom: 20px;
+}
+
+.plan-your-trip p {
+  font-size: 16px;
+  color: #333; /* Ngjyra e tekstit për paragrafin */
+  line-height: 1.6;
+}
+
+
+.cards{
+  display: flex;
+}

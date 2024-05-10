@@ -1,15 +1,55 @@
 import React from 'react'
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
-import './navbar.css'
+import {Container, Nav, Navbar,} from 'react-bootstrap';
+import { UserContext } from '../Auth/UserContext';
+import axios from 'axios';
+import { useNavigate } from "react-router-dom";
+import { useEffect } from 'react';
+import { useContext } from 'react';
+
+
 const NavigationBar = () => {
+   
+    const nav = useNavigate()
+// Do te perdoret per te mbajtur dhe ndryshuar info per user e loguar
+const { userInfo, setUserInfo } = useContext(UserContext);
+// Merr info nga backend per user-in e loguar
+useEffect(() => {
+if (!userInfo.email) {
+axios.get('http://localhost:5000/user/', {
+withCredentials: true,
+})
+.then(res => {
+setUserInfo(res.data);
+})
+.catch(err => {
+console.error('Error fetching user data:', err);
+});
+}
+},
+// useEffect do te therritet sa here qe behet nje ndryshim tek UserContext
+[userInfo, setUserInfo]);
+// Funksioni log out, fshin informacionet na UserContext
+const handelLogout = () => {
+// { withCredentials: true } kalon cookies me ane te kerkese (perdoret per token qe eshte
+
+axios.post('http://localhost:5000/logout', null, { withCredentials: true })
+.then(res => {
+// Fshin te dhenat nga UserContext
+setUserInfo({});
+// Kalon te komponenti i login
+nav('/login');
+})
+// Nese nuk ndodh logout
+.catch(error => {
+console.error('Error logging out:', error);
+});
+}
+
     return (
-     <div className="test">
-        <Navbar expand="lg" className="bg-transparent">
+     <div className='test'>
+        <Navbar expand="lg" className="bg-transparent" style={{backgroundColor:'transparent'}}>
             <Container>
-                <Navbar.Brand href="#home">Travel Simplyfied</Navbar.Brand>
+                <Navbar.Brand href="/">Travel Simplyfied</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
@@ -18,25 +58,25 @@ const NavigationBar = () => {
                        <Nav.Link href="/">START PLANNING</Nav.Link>
                        <Nav.Link href="/">BLOG</Nav.Link>
                        <Nav.Link href="/">REVIEWS</Nav.Link>
-                       <Nav.Link href="/">CONTACT</Nav.Link>
-                        
-                        <Nav.Link href="/">Home</Nav.Link>
-                        <Nav.Link href="/create">Create</Nav.Link>
-                        <Nav.Link href="/ContactForm">Contact</Nav.Link>
-                        <Nav.Link href="/ReadAll">Read All</Nav.Link>
-                        
+                       <Nav.Link href="/Contact">CONTACT</Nav.Link>
 
+            {/* Nese user-i eshte i logur do te shfaqen create dhe logout */}
+            {userInfo.email ? <>
+              <Nav.Link href="/create">Create</Nav.Link>
+              <Nav.Link href="/create">Update</Nav.Link>
 
-                        <NavDropdown title="Register" id="basic-nav-dropdown">
-                            <NavDropdown.Item href="#action/3.1">Log In</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.3">Sing Up</NavDropdown.Item>
-                            <NavDropdown.Divider />
-                            
-                        </NavDropdown>
+              <Nav.Link onClick={handelLogout}>Logout ({userInfo.email})</Nav.Link>
+            </> : <>
+              {/* Perndryshe do te shfaqen register dhe login */}
+              <Nav.Link href="/register">Register</Nav.Link>
+              <Nav.Link href="/login">Login</Nav.Link>
+            </>}
+
                     </Nav>
                 </Navbar.Collapse>
             </Container>
         </Navbar>
+       
       </div>  
     )
 }

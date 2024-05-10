@@ -1,7 +1,17 @@
 import React, { useState } from 'react'
 import { Container, Row, Col, Form, Button, Image } from 'react-bootstrap'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
+import { UserContext } from '../Auth/UserContext'
+import { useContext } from 'react'
 const Create = () => {
+    // Metode navigimi (nga njeri komponent tek tjetri)
+    const navigate = useNavigate();
+// Therritja e UserContext i cili do te mbaje te dhenave te userit
+// Informacione per user-in e loguar, percaktimi i shfaqjes se butonave update dhe delete
+    const { userInfo } = useContext(UserContext);
+// Cdo input ka nje state ku do te ruhen informacionet
+
     const [newItem, setNewItem] = useState({
         name: '',
         description: "",
@@ -21,15 +31,21 @@ const Create = () => {
         Object.entries(newItem).forEach(([key, value]) => {
             formData.append(key, value);
         });
+
+        // Append userId to the formData
+        formData.append('userId', userInfo.id);
+
         await axios.post("http://localhost:5000/create", formData)
             .then(res => {
-                console.log("Added")
+                console.log("res.data")
+                navigate("/readAll")
             }).catch(err => {
-                console.log("error" + err)
+                console.log("error server.Item not created" + err)
             })
     }
     return (
         <Container>
+        {userInfo.email ? (
             <Row>
                 <Col>
                     <Form encType='multipart/form-data' onSubmit={handleSubmit}>
@@ -65,6 +81,9 @@ const Create = () => {
                     )}
                 </Col>
             </Row>
+            ) : (
+                <h1>You are not logged in</h1>
+            )}
         </Container>
     )
 }
