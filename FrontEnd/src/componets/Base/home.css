@@ -1,0 +1,106 @@
+.test2{
+  background-image: url(../images/img1.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  height: 100vh;
+  
+}
+
+.search{
+  align-items: center;
+  width: 75%;
+  padding-top: 2%;
+  padding-left: 25%;
+  display:flex ;
+}
+
+.texts{
+  align-items: center;
+  
+  width: 100%;
+  padding-top: 15%;
+  padding-left: 25%;
+  font-size: 40px;
+  color: white;
+  
+}
+
+.p1{
+  font-size: 30px;
+  font-family: 'Times New Roman', Times, serif;
+  color: white;
+}
+.p2{
+  font-size: 20px;
+  font-family: 'Times New Roman', Times, serif;
+  color: white;
+}
+
+
+.page2 {
+  padding: 20px;
+  background-color: rgba(252, 252, 252, 0.8); 
+  align-items: center;
+  text-align: center;
+}
+.page2 h6 {
+  color: rgba(124, 110, 110, 0.8);
+  
+}
+
+
+.nav-link {
+  margin-right: 10px;
+  justify-items: legacy;
+}
+  .card-3{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    
+  }
+
+  .card-3 .card{
+    margin: 0 20px;
+    border: none;
+  }
+
+  
+  
+  .page3 {
+    background-color: rgba(209, 199, 199, 0.8); /* Ngjyra e sfondit e ndezur */
+      padding-top: 20px;
+    align-items: center;
+  }
+  .page3 h6 {
+    color: rgba(94, 86, 86, 0.8); /* Ngjyra pak më transparente se e bardha */
+    text-align: center;
+  }
+  
+  .page3 p{
+    text-align: center;
+  }
+
+  .buttons-page3 {
+    display: flex;
+    justify-content :space-around /* Vendos hapësirë të barabartë midis butonave */
+  }
+  
+  .buttons-page3 Button {
+    flex-grow: 1; /* Butonat do të zgjasin për të mbushur hapësirën në mes të tyre */
+    margin: 0 3px; /* Shto një margin nga ana e majtë dhe e djathtë të butonave */
+  }
+
+  .cards-page3{
+    display: flex;
+    justify-content: space-between;
+  }
+
+
+  .cards-container1{
+    display: flex;
+    padding-top: 20px;
+
+  }
